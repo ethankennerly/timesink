@@ -41,22 +41,23 @@ def file_stat_table(log):
 
 def time_diff(table, session_minutes_max = 60 * 6):
     rows = []
-    table.sort(reverse=True)
-    date_next = None
+    table.sort()
+    date_previously = None
     for original_row in table:
         timestamp = original_row[0]
         parts = timestamp.split(' ')
         no_time_zone = ' '.join(parts[:2])
         date = datetime.strptime(no_time_zone, '%Y-%m-%d %H:%M:%S')
-        if not date_next:
-            date_next = date
-        delta = date_next - date
-        minutes = int(round(delta.total_seconds() / 60.0))
+        if date_previously:
+            delta = date - date_previously
+            minutes = int(round(delta.total_seconds() / 60.0))
+        else:
+            date_previously = date
+            minutes = session_minutes_max / 4
         row = [minutes]
         row.extend(original_row[2:])
         rows.append(row)
-        date_next = date
-    rows.reverse()
+        date_previously = date
     return rows
 
 

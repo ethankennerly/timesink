@@ -52,13 +52,15 @@ So I reformat the files into the first line.
         >>> rows
         [['2016-07-23 12:26 -0700', 'Delete unused classes in UnityToykit.', 'Word_begin.anim', 'Word_complete.anim']]
 
-Then I sort the table by times and 
+Then I sort the table by times and calculate difference in minutes.
+If first commit in the session, equal quarter of session boundary.
 
-        >>> time_diff([['2016-07-23 15:52:02 -0700', '', 'a'], 
-        ...            ['2016-07-23 12:26:39 -0700', '', 'b']], 
+        >>> time_diff([['2016-07-23 15:52:02 -0700', '', 'b.py'], 
+        ...            ['2016-07-23 12:26:39 -0700', '', 'a.py']], 
         ...             6 * 60)
-        [[205, 'b'], [205, 'a']]
+        [[90, 'a.py'], [205, 'b.py']]
+
+## Next steps
 
 Like Git Hours, if time is over a threshold, assume separate session.
-If first commit in the session, equal average of other commits in the session.
-If only commit in the session, set to half of session boundary.
+If only commit in the session, set to quarter of session boundary.
