@@ -3,8 +3,9 @@
 Usage: 
     Change to this directory. 
     Create git log.
-        Example: bash git\_log\_ethan.sh
-    python timesink.py git.log
+        Example: bash ethan_word_garden_git_log.sh
+    python timesink.py ethan_word_garden.git.log
+    Details in README.md
 """
 
 from csv import writer
@@ -63,10 +64,28 @@ def time_diff(table, session_minutes_max = 60 * 6, minutes_default = 90):
         if shares:
             per = int(ceil(minutes / float(len(shares))))
             for share in shares:
-                row = [per, share]
+                row = [share, per]
                 rows.append(row)
             date_previously = date
     return rows
+
+
+def rank(name_minutes):
+    totals = {}
+    for name, minute in name_minutes:
+        if not name in totals:
+            totals[name] = 0
+        totals[name] += minute
+    ranks = []
+    denominator = 0
+    for total in totals.values():
+        denominator += total
+    for name, total in totals.items():
+        percent = int(round(100.0 * total / denominator))
+        ranks.append([total, percent, name])
+    ranks.sort(reverse=True)
+    ranks.insert(0, ['minutes', 'percent', 'file'])
+    return ranks
 
 
 def write_tsv(path, table):
@@ -81,9 +100,10 @@ def write_tsv(path, table):
 def profile_log_file(filepath):
     log = open(filepath).read()
     table = file_stat_table(log)
-    deltas = time_diff(table)
+    name_minutes = time_diff(table)
+    ranks = rank(name_minutes)
     out = filepath + '.tsv'
-    write_tsv(out, deltas)
+    write_tsv(out, ranks)
     return out
 
 
