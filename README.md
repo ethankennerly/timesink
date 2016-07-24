@@ -19,9 +19,9 @@ Profile relative time spent in files from git commit logs.
 
 ## Usage
 
-Simple example:
+Each author's time is parallel, so the author is specified.  Simple example:
 
-	bash timesink.sh ../your_git_repo_directory
+	bash timesink.sh ../your_git_repo_directory author_name
 
 Log git.  An example you can copy and edit is here:  
 
