@@ -19,11 +19,15 @@ Profile relative time spent in files from git commit logs.
 
 ## Usage
 
+Simple example:
+
+	bash timesink.sh ../your_git_repo_directory
+
 Log git.  An example you can copy and edit is here:  
 
         bash ethan_word_garden_git_log.sh
 
-Then estimate the time sink:
+This bash script estimates the time sink by calling:
 
         python timesink.py ethan_word_garden.git.log
 
