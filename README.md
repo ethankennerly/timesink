@@ -57,10 +57,19 @@ If first commit in the session, equal quarter of session boundary.
 
         >>> time_diff([['2016-07-23 15:52:02 -0700', '', 'b.py'], 
         ...            ['2016-07-23 12:26:39 -0700', '', 'a.py']], 
-        ...             6 * 60)
+        ...             6 * 60, 90)
         [[90, 'a.py'], [205, 'b.py']]
 
 ## Next steps
 
 Like Git Hours, if time is over a threshold, assume separate session.
 If only commit in the session, set to quarter of session boundary.
+Distribute to file times.
+
+        >>> time_diff([['2016-07-23 15:52:02 -0700', '', 'a.py', 'b.py'], 
+        ...            ['2016-07-23 12:26:39 -0700', '', 'a.py'], 
+        ...            ['2016-07-22 12:26:39 -0700', '', 'b.py'], 
+        ...            ['2016-07-21 12:26:39 -0700', '', 'a.py']], 
+        ...             6 * 60)
+        [[90, 'a.py'], [90, 'b.py'], [90, 'a.py'], [103, 'a.py'], [103, 'b.py']]
+

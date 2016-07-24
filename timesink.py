@@ -7,9 +7,11 @@ Usage:
     python timesink.py git.log
 """
 
+from csv import writer
 from datetime import datetime
+from math import ceil
 
-separator = '\t'
+delimiter = '\t'
 
 
 def file_stat_table(log):
@@ -39,10 +41,11 @@ def file_stat_table(log):
     return trimmed_lines
 
 
-def time_diff(table, session_minutes_max = 60 * 6):
+def time_diff(table, session_minutes_max = 60 * 6, minutes_default = 90):
     rows = []
     table.sort()
     date_previously = None
+    minutes_default = session_minutes_max / 4
     for original_row in table:
         timestamp = original_row[0]
         parts = timestamp.split(' ')
@@ -51,20 +54,37 @@ def time_diff(table, session_minutes_max = 60 * 6):
         if date_previously:
             delta = date - date_previously
             minutes = int(round(delta.total_seconds() / 60.0))
+            if session_minutes_max < minutes:
+                minutes = minutes_default
         else:
             date_previously = date
-            minutes = session_minutes_max / 4
-        row = [minutes]
-        row.extend(original_row[2:])
-        rows.append(row)
-        date_previously = date
+            minutes = minutes_default
+        shares = original_row[2:]
+        if shares:
+            per = int(ceil(minutes / float(len(shares))))
+            for share in shares:
+                row = [per, share]
+                rows.append(row)
+            date_previously = date
     return rows
+
+
+def write_tsv(path, table):
+    """
+    http://stackoverflow.com/questions/14780702/how-to-read-and-write-a-table-matrix-to-file-with-python
+    """
+    with open(path, 'w') as csvfile:
+        write = writer(csvfile, delimiter=delimiter)
+        [write.writerow(r) for r in table]
 
 
 def profile_log_file(filepath):
     log = open(filepath).read()
     table = file_stat_table(log)
-    return time_diff(table)
+    deltas = time_diff(table)
+    out = filepath + '.tsv'
+    write_tsv(out, deltas)
+    return out
 
 
 if '__main__' == __name__:
