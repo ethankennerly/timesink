@@ -6,7 +6,7 @@ minutes	percent	file
 354	3	session.vim
 311	3	Levels.cs
 298	3	README.md
-261	2	View.cs
+271	3	View.cs
 233	2	AnagramView.cs
 225	2	Main.cs
 223	2	SceneNodeView.cs
@@ -106,7 +106,6 @@ minutes	percent	file
 10	0	Input_completed.anim
 10	0	Input.controller
 10	0	GameObjectTree.cs
-10	0	1 file changed, 1 deletion(-)
 9	0	text.meta
 9	0	Resources.meta
 9	0	ModelExample.cs
@@ -315,7 +314,6 @@ minutes	percent	file
 2	0	Input_repeat.anim.meta
 2	0	Input_completed.anim.meta
 2	0	Input_complete.anim.meta
-2	0	75 files changed, 5502 deletions(-)
 1	0	picgifs.com.flowers-coloring-pages-18.gif.meta
 1	0	input_root.png.meta
 1	0	input_root.png
@@ -343,5 +341,3 @@ minutes	percent	file
 1	0	DK Harimau Dua.otf
 1	0	Calculate.cs.meta
 1	0	AudioManager.asset
-1	0	8 files changed, 168 deletions(-)
-1	0	8 files changed, 1 deletion(-)

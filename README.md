@@ -46,6 +46,8 @@ So I reformat the files into the first line.
         ...  Assets/Animation/Word_complete.anim        | Bin 10392 -> 10392 bytes
         ...  ticsManager.asset => ClusterInputManager.asset} | Bin 4112 -> 4104 bytes
         ...  3 files changed, 622 insertions(+)
+        ...  2 files changed
+        ...  1 file changed
         ... '''
         >>> rows = file_stat_table(log)
         >>> rows

@@ -24,7 +24,7 @@ def file_stat_table(log):
         if not stripped:
             continue
         elif ' ' == line[0]:
-            if ' insertions(+)' in line or ' insertion(+)' in line:
+            if ' files changed' in line or ' file changed' in line:
                 continue
             elif '=>' in line:
                 continue
