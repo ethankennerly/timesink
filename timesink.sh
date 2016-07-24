@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Usage:  bash timesink.sh git_repo_directory
+# Usage:  bash timesink.sh git_repo_directory author_name
 
 wd=`pwd`
-cd $1
-git log --format="%cd:::%s" --date=iso --stat > $wd/timesink.git.log
+dir=$1
+author=$2
+log=$wd/$author.timesink.git.log
+
+cd $dir
+git log --format="%cd:::%s" --author $author --date=iso --stat > $log
 cd $wd
-python timesink.py $wd/timesink.git.log
+python timesink.py $log
